@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Chrome Password Lock — Welcome</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Welcome page for Chrome Password Lock: pin the extension and start using it to lock your browser.">
+  <link rel="icon" href="assets/logo.svg">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <img class="logo" src="assets/logo.svg" alt="Chrome Password Lock">
+      <h1>You're all set!</h1>
+      <p class="lead">Follow these quick steps to keep the extension handy.</p>
+    </header>
+
+    <section class="card">
+      <img class="toolbar" src="assets/toolbar.svg" alt="Chrome toolbar with puzzle (1), pin (2), and extension icon (3)">
+      <ol class="steps">
+        <li>
+          <strong>(1)</strong> Нажмите на значок <em>Extensions</em> (пазл) в правом верхнем углу Chrome.
+        </li>
+        <li>
+          <strong>(2)</strong> Найдите <em>Chrome Password Lock</em> в списке и нажмите на значок <em>pin</em>, чтобы закрепить.
+        </li>
+        <li>
+          <strong>(3)</strong> чтобы заблокировать браузер начните использовать Chrome password lock
+        </li>
+      </ol>
+      <div class="cta">
+        <a class="btn" href="chrome://extensions/" onclick="return false;">Открыть страницу расширений</a>
+      </div>
+    </section>
+
+    <section class="small">
+      <p><strong>Tip:</strong> Закреплённая иконка будет видна на панели инструментов. Нажмите её в любой момент, чтобы открыть расширение.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Chrome Password Lock</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
