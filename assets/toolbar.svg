@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="200" viewBox="0 0 960 200">
+  <defs>
+    <style>
+      .bg{fill:#ffffff;stroke:#e5e7eb}
+      .text{font: 16px Inter, Arial, sans-serif; fill:#111827}
+      .muted{fill:#6b7280}
+      .pill{fill:#2563eb;stroke:none}
+      .pilltext{font: 12px Inter, Arial, sans-serif; fill:#ffffff}
+      .chip{fill:#f3f4f6;stroke:#e5e7eb}
+      .icon{fill:#111827}
+    </style>
+  </defs>
+
+  <!-- Toolbar background -->
+  <rect x="10" y="30" width="940" height="60" rx="10" class="bg"/>
+
+  <!-- (1) Puzzle icon -->
+  <g transform="translate(780,45)">
+    <circle cx="0" cy="15" r="14" class="chip"/>
+    <path class="icon" d="M-6 8 a3 3 0 0 1 6 0 v2 h4 a3 3 0 0 1 3 3 v4 h1 a3 3 0 1 1 0 6 h-1 v4 a3 3 0 0 1-3 3 h-4 v2 a3 3 0 1 1-6 0 v-2 h-4 a3 3 0 0 1-3-3 v-4 h-1 a3 3 0 1 1 0-6 h1 v-4 a3 3 0 0 1 3-3 h4 v-2z" transform="scale(0.9)"/>
+  </g>
+  <!-- (1) label -->
+  <g transform="translate(760,20)">
+    <rect x="0" y="0" rx="10" ry="10" width="36" height="20" class="pill"/>
+    <text x="18" y="14" text-anchor="middle" class="pilltext">1</text>
+  </g>
+
+  <!-- (2) Pin icon -->
+  <g transform="translate(820,45)">
+    <circle cx="0" cy="15" r="14" class="chip"/>
+    <path class="icon" d="M4 2 l6 6 -3 1 -2 6 -2-2 -2-2 6-2 1-3 -4-4z" transform="translate(-2,3) scale(1.2)"/>
+  </g>
+  <!-- (2) label -->
+  <g transform="translate(812,20)">
+    <rect x="0" y="0" rx="10" ry="10" width="36" height="20" class="pill"/>
+    <text x="18" y="14" text-anchor="middle" class="pilltext">2</text>
+  </g>
+
+  <!-- (3) Extension icon (lock) -->
+  <g transform="translate(860,45)">
+    <circle cx="0" cy="15" r="14" class="chip"/>
+    <path class="icon" d="M-6 15 h12 v8 h-12 z M-2 15 v-3 a4 4 0 0 1 8 0 v3" />
+  </g>
+  <!-- (3) label -->
+  <g transform="translate(864,20)">
+    <rect x="0" y="0" rx="10" ry="10" width="36" height="20" class="pill"/>
+    <text x="18" y="14" text-anchor="middle" class="pilltext">3</text>
+  </g>
+
+  <!-- Address bar indicator text -->
+  <text x="30" y="65" class="muted">example.com</text>
+</svg>
