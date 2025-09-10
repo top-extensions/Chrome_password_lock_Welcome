@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48x48.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64x64.png" />
+<link rel="icon" type="image/png" sizes="128x128" href="icons/favicon-128x128.png" />
+</head>
+<body>
+  <main class="wrap">
+    <h1 class="title">Google Chrome Password lock Installed</h1>
+
+    <p class="lead">
+      Click the puzzle piece <strong>(1)</strong> in&nbsp;the top right of&nbsp;your browser.
+      Then, click the little pin <strong>(2)</strong> next to&nbsp;the extension:
+    </p>
+
+    <figure class="figure">
+      <img src="assets/welcome-1.png" alt="How to pin the extension" />
+    </figure>
+
+    <p class="lead spaced">
+      Open the extension <strong>(3)</strong> on&nbsp;any page to start using
+      <span class="brand">Google Chrome Password lock</span>:
+    </p>
+
+    <figure class="figure">
+      <img src="assets/welcome-2.png" alt="How to open the extension" />
+    </figure>
+  </main>
+
+<!-- Confetti (via CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script>
+  (function(){
+    function shoot(particleRatio, opts) {
+      confetti(Object.assign({
+        origin: { y: 0.6 }
+      }, opts, {
+        particleCount: Math.floor(200 * particleRatio)
+      }));
+    }
+
+    function fire(){
+      shoot(0.25, { spread: 26, startVelocity: 55 });
+      shoot(0.2,  { spread: 60 });
+      shoot(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+      shoot(0.1,  { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+      shoot(0.1,  { spread: 120, startVelocity: 45 });
+    }
+
+    // initial burst
+    fire();
+
+    // a couple more bursts to draw attention
+    setTimeout(fire, 600);
+    setTimeout(fire, 1400);
+  })();
+</script>
+</body>
+</html>
