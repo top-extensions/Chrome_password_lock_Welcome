@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Сброс пароля — Chrome Password Lock</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; line-height: 1.5; }
+    .card { max-width: 720px; border: 1px solid #ccc; border-radius: 12px; padding: 20px; margin: auto; }
+    h1 { font-size: 20px; margin: 0 0 12px; }
+    .muted { opacity: .8; }
+    .ok { color: #0a7f2e; font-weight: 600; }
+    .err { color: #b00020; font-weight: 600; }
+    .hidden { display: none; }
+    .row { display:flex; gap:8px; align-items:center; }
+    input[type="text"] { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #aaa; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    button { padding: 10px 14px; border-radius: 10px; border: none; cursor: pointer; }
+    button.primary { background: #0a7f2e; color: #fff; }
+    button.secondary { background: #e0e0e0; }
+    .steps { margin-top: 10px; padding-left: 18px; }
+    .tiny { font-size: 12px; }
+    code { background: rgba(127,127,127,.12); padding: 2px 6px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Сброс пароля</h1>
+    <p id="status" class="muted">Пытаемся связаться с расширением…</p>
+
+    <div id="success" class="hidden">
+      <p class="ok">Готово! Откройте окно расширения — можно задать новый пароль.</p>
+      <p class="muted tiny">Если окно настроек не открылось автоматически, кликните по иконке расширения и откройте «Настройки».</p>
+    </div>
+
+    <div id="fallback" class="hidden">
+      <p class="err" id="fallback-title">Не удалось связаться с расширением.</p>
+      <p class="muted">Вы можете вставить токен вручную в окно расширения.</p>
+      <div class="row">
+        <input id="tokenInput" type="text" readonly />
+        <button id="copyBtn" class="secondary" type="button">Скопировать</button>
+      </div>
+      <ol class="steps">
+        <li>Откройте расширение <strong>Chrome Password Lock</strong> в этом браузере.</li>
+        <li>Найдите пункт <em>«Вставить токен из письма»</em> или кнопку сброса.</li>
+        <li>Вставьте токен из поля выше и подтвердите.</li>
+      </ol>
+      <p class="tiny muted">Подсказка: токен действителен около 10 минут.</p>
+    </div>
+
+    <div id="noToken" class="hidden">
+      <p class="err">Нет токена в ссылке.</p>
+      <p class="muted">Откройте ссылку из письма ещё раз или запросите сброс пароля заново.</p>
+    </div>
+
+    <div id="notChrome" class="hidden">
+      <p class="err">Кажется, эта страница открыта в браузере без установленного расширения.</p>
+      <p class="muted">Откройте эту ссылку в том же браузере, где установлено расширение <strong>Chrome Password Lock</strong>.</p>
+    </div>
+
+    <p id="details" class="tiny muted hidden"></p>
+  </div>
+
+  <script>
+    (function () {
+      const EXT_ID = "kgaanolpnilipfmglgfmgfohpcboabic"; // ID вашего расширения
+      const statusEl = document.getElementById('status');
+      const successEl = document.getElementById('success');
+      const fallbackEl = document.getElementById('fallback');
+      const noTokenEl = document.getElementById('noToken');
+      const notChromeEl = document.getElementById('notChrome');
+      const detailsEl = document.getElementById('details');
+      const tokenInput = document.getElementById('tokenInput');
+      const copyBtn = document.getElementById('copyBtn');
+
+      const url = new URL(location.href);
+      const token = url.searchParams.get('token');
+      if (!token) {
+        statusEl.classList.add('hidden');
+        noTokenEl.classList.remove('hidden');
+        return;
+      }
+      tokenInput.value = token;
+
+      // Кнопка «Скопировать»
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(token);
+          copyBtn.textContent = 'Скопировано';
+          setTimeout(() => (copyBtn.textContent = 'Скопировать'), 1500);
+        } catch (e) {
+          copyBtn.textContent = 'Ошибка';
+          setTimeout(() => (copyBtn.textContent = 'Скопировать'), 1500);
+        }
+      });
+
+      // Проверка наличия chrome.runtime на странице
+      if (typeof chrome === "undefined" || !chrome.runtime || !chrome.runtime.sendMessage) {
+        statusEl.classList.add('hidden');
+        notChromeEl.classList.remove('hidden');
+        // всё равно показываем fallback с токеном
+        fallbackEl.classList.remove('hidden');
+        return;
+      }
+
+      // Попытка отправить токен в расширение
+      try {
+        chrome.runtime.sendMessage(EXT_ID, { type: "MAGIC_LINK", token }, (resp) => {
+          if (chrome.runtime.lastError) {
+            statusEl.classList.add('hidden');
+            fallbackEl.classList.remove('hidden');
+            detailsEl.classList.remove('hidden');
+            detailsEl.textContent = "Подробности: " + chrome.runtime.lastError.message;
+            return;
+          }
+          if (resp && resp.ok) {
+            statusEl.classList.add('hidden');
+            successEl.classList.remove('hidden');
+          } else {
+            statusEl.classList.add('hidden');
+            fallbackEl.classList.remove('hidden');
+            detailsEl.classList.remove('hidden');
+            detailsEl.textContent = "Подробности: токен отклонён или истёк.";
+          }
+        });
+      } catch (e) {
+        statusEl.classList.add('hidden');
+        fallbackEl.classList.remove('hidden');
+        detailsEl.classList.remove('hidden');
+        detailsEl.textContent = "Исключение при отправке сообщения: " + (e && e.message ? e.message : e);
+      }
+    })();
+  </script>
+</body>
+</html>
