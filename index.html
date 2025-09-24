@@ -9,15 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48x48.png" />
-<link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64x64.png" />
-<link rel="icon" type="image/png" sizes="128x128" href="icons/favicon-128x128.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64x64.png" />
+  <link rel="icon" type="image/png" sizes="128x128" href="icons/favicon-128x128.png" />
 </head>
 <body>
   <main class="wrap">
-    <h1 class="title">Google Chrome Password lock Installed</h1>
+    <h1 class="title">
+      <a href="https://chromewebstore.google.com/detail/google-chrome-password-lo/kgaanolpnilipfmglgfmgfohpcboabic" target="_blank" rel="noopener noreferrer">
+        Google Chrome Password lock Installed
+      </a>
+    </h1>
 
     <p class="lead">
       Click the puzzle piece <strong>(1)</strong> in&nbsp;the top right of&nbsp;your browser.
@@ -38,33 +42,33 @@
     </figure>
   </main>
 
-<!-- Confetti (via CDN) -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-<script>
-  (function(){
-    function shoot(particleRatio, opts) {
-      confetti(Object.assign({
-        origin: { y: 0.6 }
-      }, opts, {
-        particleCount: Math.floor(200 * particleRatio)
-      }));
-    }
+  <!-- Confetti (via CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+    (function(){
+      function shoot(particleRatio, opts) {
+        confetti(Object.assign({
+          origin: { y: 0.6 }
+        }, opts, {
+          particleCount: Math.floor(200 * particleRatio)
+        }));
+      }
 
-    function fire(){
-      shoot(0.25, { spread: 26, startVelocity: 55 });
-      shoot(0.2,  { spread: 60 });
-      shoot(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-      shoot(0.1,  { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-      shoot(0.1,  { spread: 120, startVelocity: 45 });
-    }
+      function fire(){
+        shoot(0.25, { spread: 26, startVelocity: 55 });
+        shoot(0.2,  { spread: 60 });
+        shoot(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+        shoot(0.1,  { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+        shoot(0.1,  { spread: 120, startVelocity: 45 });
+      }
 
-    // initial burst
-    fire();
+      // initial burst
+      fire();
 
-    // a couple more bursts to draw attention
-    setTimeout(fire, 600);
-    setTimeout(fire, 1400);
-  })();
-</script>
+      // a couple more bursts to draw attention
+      setTimeout(fire, 600);
+      setTimeout(fire, 1400);
+    })();
+  </script>
 </body>
 </html>
